@@ -20,6 +20,7 @@ import { FilterPipe } from './pages/consultas/filter.pipe';
     LoginComponent,
     ConsultasComponent,
     FilterPipe,
+
   ],
   imports: [
     BrowserModule,
@@ -27,7 +28,7 @@ import { FilterPipe } from './pages/consultas/filter.pipe';
     FormsModule,
     HttpClientModule,
     BsDatepickerModule.forRoot(),
-    BrowserAnimationsModule 
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

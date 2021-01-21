@@ -13,19 +13,19 @@ export class HomeComponent implements OnInit {
   f: FormGroup;
 
   codigo = {
-    clave:''
+    clave: ''
   }
-  constructor(private route:Router) { }
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
   }
 
 
-  capturar(f: NgForm){
+  capturar(f: NgForm) {
     console.log(f);
     console.log(f.value);
     if (f.invalid) {
-      Object.values(f.controls).forEach( controlE =>{
+      Object.values(f.controls).forEach(controlE => {
         console.log(controlE);
         controlE.markAsTouched()
       });
@@ -35,19 +35,19 @@ export class HomeComponent implements OnInit {
 
     this.codigo.clave = f.controls["clave"].value;
     console.log(JSON.stringify(this.codigo));
-    
+
     if (this.compara(this.codigo.clave)) {
       this.direccionar();
-  }
+    }
   }
 
 
-  compara(seguro:string) {
-    const seqKey = 'ddfgbb.+ytd#ddddñghoygdmfnvsw}fsfñsf{sfs-fsdf.sfsd,0&$6634875646'
+  compara(seguro: string) {
+    const seqKey = '123456'
     console.log(seqKey);
-    
-    return ( seqKey === seguro ) ?  true : false;
-  } 
+
+    return (seqKey === seguro) ? true : false;
+  }
 
   direccionar() {
     console.log(this.codigo.clave);

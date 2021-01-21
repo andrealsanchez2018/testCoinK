@@ -1,47 +1,40 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, JsonpClientBackend } from "@angular/common/http";
 import { FormControl, FormGroup } from '@angular/forms';
 import { Base64 } from 'js-base64';
 import { environment } from "src/environments/environment";
 import { map } from "rxjs/operators";
+import { Payload } from "../pages/Models/Payload";
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeneralService {
 
-  private url = environment.cadena1+"login"+environment.cadena2;
-  private url2 = environment.cadena1+environment.cadenaPurchase+environment.cadena2;
-  constructor( private http:HttpClient) { 
-    
-  }
-  
-  public loginServ(){
+  private url = environment.cadena1 + "login" + environment.cadena2;
 
-    const SERVLOGIN = {"payload":
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTA4OTM3NTgsIlRva2VuS2V5IjoiZDczZGJkZDEtYzgwNy00NDUxLWE0MjUtNzg1MTQzN2QyYzlmIiwidXNlcklkIjoiNjNjMjBmNDMtYzI5ZS00NjMyLWE0YzMtZmM0NWMzZWNlNzdiIn0.EQWWfkT7faQUOI8EQQIoE9AgfPTOSMmz2tBcl5TcBT4"
-  
-    } 
-    
-    const data= JSON.stringify(SERVLOGIN);
-    return this.http.post(this.url, data);
-      
-  }
-  
+  constructor(private http: HttpClient) {
 
-  public iniciarSesion(usuarioLogueado) {
-    let params = JSON.stringify(usuarioLogueado);
+  }
+
+  public GetToken(req: Payload) {
+
+
+    return this.http.post(this.url, JSON.stringify(req));
+
+  }
+
+
+  public POST(req: Payload, authToken: string, service: string) {
+    let requestHeaders = new HttpHeaders();
+    requestHeaders.append('Content-Type', 'application/json');
+    requestHeaders.append('Authorization', authToken);
     let options = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+      headers: requestHeaders, responseType: 'text' as const
     }
-    return this.http.post(
-      this.url + 'login',
-      params,
-      options
-    ).pipe(map(res => res));
+    return this.http.post(environment.cadena1 + service + environment.cadena2, JSON.stringify(req), options);
   }
 
-     
+
 }
 
- 
