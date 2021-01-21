@@ -15,7 +15,11 @@ import { Payload } from '../Models/Payload';
 export class ConsultasComponent implements OnInit {
 
   filterTabla = '';
-  authToken: string = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTEyMDE0ODcsIlRva2VuS2V5IjoiN2I2ODU1OGMtMTgzZC00Yjc0LTk1ZmMtNzBlYzFmNzY2Njk4IiwidXNlcklkIjoiNjNjMjBmNDMtYzI5ZS00NjMyLWE0YzMtZmM0NWMzZWNlNzdiIn0.jzr7bvsYtsMhWemaWmLR1_2g0zV13_COwl3UxNND-kc";
+  pageTabla1: number = 1;
+  codeB64:any;
+  // authToken: string = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTEyMDE0ODcsIlRva2VuS2V5IjoiN2I2ODU1OGMtMTgzZC00Yjc0LTk1ZmMtNzBlYzFmNzY2Njk4IiwidXNlcklkIjoiNjNjMjBmNDMtYzI5ZS00NjMyLWE0YzMtZmM0NWMzZWNlNzdiIn0.jzr7bvsYtsMhWemaWmLR1_2g0zV13_COwl3UxNND-kc";
+  // token traido por service:
+  authToken: string;
   startDate: string;
   endDate: string;
   exportReq: ExportIn = new ExportIn();
@@ -24,12 +28,16 @@ export class ConsultasComponent implements OnInit {
   // limpiar
   daterange: string = null;
   buscar: string = null;
-
+  selectorBuscar:any;
+  
+  
   clients = [];
   tempclients = [];
   constructor(private datepickerService: DataService, private httpServices: GeneralService, private encryptService: EncriptarService) { }
   ngOnInit() {
     this.getclients();
+    this.importToken();
+
   }
 
   getclients() {
@@ -66,17 +74,39 @@ export class ConsultasComponent implements OnInit {
 
   }
 
-  Export() {
-    this.exportReq.begin_date = "";
-    this.exportReq.end_date = "";
-    this.exportReq.filter_value = "";
-    this.exportReq.filter_field = "";
-    this.exportReq.vault_id = "";
 
+  importToken(){
+    this.authToken = this.httpServices.tokenEncrip;
+    console.log(`token consultas: ${this.authToken}`);
+    
+  }
+
+
+  Export() {
+    this.exportReq.begin_date = this.startDate;
+    this.exportReq.end_date = this.endDate;
+    this.exportReq.filter_value = this.filterTabla;
+    this.exportReq.filter_field = this.selectorBuscar;
+    this.exportReq.vault_id = "";
+    console.log(`being date ${this.startDate}`);
+    console.log(`end date ${this.endDate}`);
+    console.log(`filterTabla ${this.filterTabla}`);
+    console.log(`selectorBuscar ${this.selectorBuscar}`);
+    
     this.sersd.servi = servi['pockets/reports/transactions/purchases/export'];
 
-    this.httpServices.POST(this.payload, "", this.sersd.servi.toString())
-
+    this.httpServices.POST(this.payload, this.authToken, this.sersd.servi.toString())
+    this.codeB64 = this.sersd.servi.toString()
+    this.httpServices.b64EncodeUnicode(this.codeB64);
+    console.log(this.codeB64);
+    
   }
+
+  busqueda(id)
+{
+  console.log(id);
+  
+}
+ 
 
 }

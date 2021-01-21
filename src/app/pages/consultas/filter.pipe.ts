@@ -13,7 +13,8 @@ export class FilterPipe implements PipeTransform {
       if (opcion.nombre.toLowerCase().indexOf(args.toLowerCase()) > -1 ||
           (opcion.celular.toString()).indexOf(args.toString()) > -1 ||
           (opcion.email.toString()).indexOf(args.toString()) > -1 ||
-          (opcion.fechaCompra.toString()).indexOf(args.toString()) > -1) {
+          (opcion.fechaCompra.toString()).indexOf(args.toString()) > -1 ||
+          (opcion.edad.toString()).indexOf(args.toString()) > -1) {
             resultPost.push(opcion);
           }
           }

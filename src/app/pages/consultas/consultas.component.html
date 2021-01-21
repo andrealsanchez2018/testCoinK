@@ -12,16 +12,16 @@
                                 <button class="filtro-btn mt-3 mb-2" (click)="filtroLimpio()">Limpiar filtros</button>
                             </div>
                             <div class="form-group d-flex flex-wrap mb-2 justify-content-between col-md-6 col-md-12">
-                                <select class="form-control col-md-4 mt-3" onchange="selectorBuscar">
+                                <select class="form-control col-md-4 mt-3" (change)="busqueda(selectorBuscar)" [(ngModel)]="selectorBuscar" [ngModelOptions]="{standalone: true}">
                                     <option value="0" selected="true">Campo</option>
-                                    <option value="1">Nombre</option>
-                                    <option value="2">Cel</option>
-                                    <option value="3">Email</option>
-                                    <option value="4">Fecha de compra</option>
-                                    <option value="5">Edad</option>
+                                    <option value="Nombre">Nombre</option>
+                                    <option value="Cel">Cel</option>
+                                    <option value="Email">Email</option>
+                                    <option value="Fecha de compra">Fecha de compra</option>
+                                    <option value="Edad">Edad</option>
                                   </select>
 
-                                <input type="text" name="buscar" autocomplete="off" placeholder="Buscar" class="form-control col-md-4 mt-3 mb-2" [(ngModel)]="filterTabla" />
+                                <input type="text" name="buscar" autocomplete="off" placeholder="Buscar" class="form-control col-md-4 mt-3 mb-2" [(ngModel)]="filterTabla" [ngModelOptions]="{standalone: true}" />
                                 <button type="button" class="buscar-btn mt-3">Buscar</button>
                             </div>
                         </form>
@@ -39,7 +39,7 @@
                                         <th>Edad</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngFor="let cliente of clients | filter:filterTabla ; let i = index">
+                                <tbody *ngFor="let cliente of clients | filter:filterTabla | paginate: {itemsPerPage: 25, currentPage: pageTabla1} ; let i = index">
                                     <tr>
                                         <td align="center">{{cliente.nombre}}</td>
                                         <td>{{cliente.celular}}</td>
@@ -48,7 +48,9 @@
                                         <td>{{cliente.edad}}</td>
                                     </tr>
                                 </tbody>
+                                <button class="filtro-btn mt-3 mb-2" (click)="Export()">Descargar</button>
                             </table>
+                            <pagination-controls class="paginationC" (pageChange)="pageTabla1 = $event"></pagination-controls>
                         </div>
                     </div>
                 </div>

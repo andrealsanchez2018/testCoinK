@@ -11,6 +11,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { ConsultasComponent } from './pages/consultas/consultas.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FilterPipe } from './pages/consultas/filter.pipe';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { FilterPipe } from './pages/consultas/filter.pipe';
     FormsModule,
     HttpClientModule,
     BsDatepickerModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

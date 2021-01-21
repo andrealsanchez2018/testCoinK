@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 import { NgForm } from "@angular/forms";
@@ -25,8 +25,11 @@ export class LoginComponent implements OnInit {
 
 
   pass1NoValido = false;
-  codLogin: string = '';
 
+
+  // @Output() token = new EventEmitter<string>();
+
+  
   usuario = {
     correo: "",
     pass: ''
@@ -81,6 +84,8 @@ export class LoginComponent implements OnInit {
     this.httpServices.GetToken(this.payload).subscribe((response) => {
 
       this.authToken = response.toString();
+      this.httpServices.tokenEncrip = this.authToken;
+      // this.sendToken();
       this.route.navigate(['/home']);
 
     }, () => {
@@ -88,10 +93,6 @@ export class LoginComponent implements OnInit {
       this.invalidCredentials = true;
     }
     );
-
-
-
-
     // this.route.navigate(['/home']);
     // let a = this.encryptService.encrypt(this.usuario.pass);
     // console.log("a", a);
@@ -101,6 +102,14 @@ export class LoginComponent implements OnInit {
   }
 
 
+   // enviar token a home
+  // sendToken() {
+  //   this.token.emit(this.authToken); 
+  //   console.log(`enviando token a home ${this.authToken}`);
+    
+  // }
+
+
   compara(password: string) {
     const pass1 = 'pwdTest123#'
 
@@ -108,33 +117,9 @@ export class LoginComponent implements OnInit {
     return (pass1 === password) ? true : false;
   }
 
-  b64EncodeUnicode(str: any) {
-    // first we use encodeURIComponent to get percent-encoded UTF-8,
-    // then we convert the percent encodings into raw bytes which
-    // can be fed into btoa.
-    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
-      // function toSolidBytes(match, p1) {
-      (match, p1) => {
-        // console.debug('match: ' + match);
-        return String.fromCharCode(("0x" + p1) as any);
-      }));
-  }
-
-  b64DecodeUnicode(str) {
-    // Going backwards: from bytestream, to percent-encoding, to original string.
-    return decodeURIComponent(atob(str).split('').map(function (c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-  }
+ 
 
 
-
-
-
-  getLogin() {
-    this.codLogin = this.b64EncodeUnicode('https://api.backmerchants.bancoink.biz/qa/login?apiKey=252156');
-    console.log(this.codLogin);
-  }
 
 
 }

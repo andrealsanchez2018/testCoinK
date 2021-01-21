@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Router } from "@angular/router";
@@ -9,8 +9,12 @@ import { Router } from "@angular/router";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
   seguroNovalido = true;
   f: FormGroup;
+
+
+  @Input() authToken:string;
 
   codigo = {
     clave: ''
@@ -18,8 +22,10 @@ export class HomeComponent implements OnInit {
   constructor(private route: Router) { }
 
   ngOnInit(): void {
+    this.authToken;
   }
-
+  
+  
 
   capturar(f: NgForm) {
     console.log(f);
@@ -37,6 +43,9 @@ export class HomeComponent implements OnInit {
     console.log(JSON.stringify(this.codigo));
 
     if (this.compara(this.codigo.clave)) {
+      // this.recieveToken()
+    //  console.log(`token en home ${this.authToken}`);
+    console.log(this.authToken);
       this.direccionar();
     }
   }
@@ -48,6 +57,12 @@ export class HomeComponent implements OnInit {
 
     return (seqKey === seguro) ? true : false;
   }
+
+  /* recieveToken() {
+    this.authToken 
+    console.log(`token en home ${this.authToken}`);
+    
+  } */
 
   direccionar() {
     console.log(this.codigo.clave);
