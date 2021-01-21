@@ -1,0 +1,58 @@
+<div class="limiter">
+    <div class="ayuda">
+        <img src="../../../assets/coink/ayuda.png" alt="logo">
+        <a>¿Necesitas ayuda?</a>
+    </div>
+    <div class=" dimension">
+
+        <img src="../../../assets/coink/logo.png" alt="logo">
+
+        <!-- <form class="form-control formC" autocomplete="off" (ngSubmit)="guardar( forma )" #forma="ngForm"> -->
+        <form class="formC" autocomplete="off" (ngSubmit)="guardar( forma )" #forma="ngForm">
+
+            <span class="login100-form-title p-b-20">
+            
+                    INGRESA A TU CUENTA
+                </span>
+            <!-- <h3>INGRESA A TU CUENTA</h3> -->
+
+            <div class="wrap-input100 m-b-16">
+                <input class="input100 " type="email" name="usuario" [class.is-invalid]="usuario.invalid && usuario.touched" ngModel placeholder="Usuario" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #usuario="ngModel">
+                <small *ngIf="usuario.invalid && usuario.touched " class="form-text text-danger bg-light text-center w-100">correo invalido</small>
+            </div>
+
+
+            <div class="wrap-input100 m-b-16">
+                <!-- <input class="input100 " type="password" name="pass" placeholder="Contraseña"> -->
+                <input class="input100" type="password" placeholder="Contraseña" name="pass" [class.is-invalid]="pass1NoValido" ngModel #pass="ngModel" required minlength="11">
+                <small *ngIf="pass.invalid && pass.touched " class="form-text text-danger bg-light text-center w-100">no cumple los parametros</small>
+            </div>
+
+            <div class="container-login100-form-btn m-t-17 my-2">
+                <button class="login100-form-btn" type="submit">
+                    INGRESAR
+                </button>
+            </div>
+
+
+            <div class="observa">
+
+                <a routerLink="#" class="txt1">
+                            Olvidé mi PIN
+                        </a>
+                <br>
+                <a routerLink="#" class="txt1">
+                            Olvidé mi número de celular empresarial
+                        </a>
+
+            </div>
+
+        </form>
+
+        <a routerLink="#" class="txt2">
+            ¿Quieres vincular tu empresa a Coink?
+        </a>
+
+    </div>
+    <footer>Copyright © 2020 Coink S.A</footer>
+</div>

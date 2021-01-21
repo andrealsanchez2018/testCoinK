@@ -1,0 +1,58 @@
+<div class="card">
+    <div class="card-body pb-0">
+        <h4 class="titlePurchase">CONSULTAS - COMPRAS CON EL COFRE</h4>
+        <div class="row">
+            <div class="col-12 col-md-12 bg-light">
+                <div class="card bg-light">
+                    <div class="card-header d-flex bg-light">
+                        <form class="col-md-12">
+                            <div class="form-group d-flex flex-wrap  justify-content-between col-md-6 col-md-12 ">
+                                <input type="text" name="daterange" autocomplete="off" bsDaterangepicker [bsConfig]="{ rangeInputFormat : 'MMMM Do YYYY', dateInputFormat: 'MMMM Do YYYY', showWeekNumbers: true, adaptivePosition: true, isAnimated: true }" id="DateOfBirth" placeholder="Filtro de rango de fechas"
+                                    [(ngModel)]="daterange" (bsValueChange)="dateRangeCreated($event)" class="form-control col-md-4 mt-3 mb-2" />
+                                <button class="filtro-btn mt-3 mb-2" (click)="filtroLimpio()">Limpiar filtros</button>
+                            </div>
+                            <div class="form-group d-flex flex-wrap mb-2 justify-content-between col-md-6 col-md-12">
+                                <select class="form-control col-md-4 mt-3" onchange="selectorBuscar">
+                                    <option value="0" selected="true">Campo</option>
+                                    <option value="1">Nombre</option>
+                                    <option value="2">Cel</option>
+                                    <option value="3">Email</option>
+                                    <option value="4">Fecha de compra</option>
+                                    <option value="5">Edad</option>
+                                  </select>
+
+                                <input type="text" name="buscar" autocomplete="off" placeholder="Buscar" class="form-control col-md-4 mt-3 mb-2" [(ngModel)]="filterTabla" />
+                                <button type="button" class="buscar-btn mt-3">Buscar</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="card-body position-relative">
+                        <div class="table-responsive cnstr-record product-tbl">
+                            <table class="table table-bordered heading-hvr">
+                                <thead>
+                                    <tr class="cabecera">
+                                        <th>Nombre</th>
+                                        <th>Celular</th>
+                                        <th>Email</th>
+                                        <th>Fecha compra</th>
+                                        <th>Edad</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let cliente of clients | filter:filterTabla ; let i = index">
+                                    <tr>
+                                        <td align="center">{{cliente.nombre}}</td>
+                                        <td>{{cliente.celular}}</td>
+                                        <td>{{cliente.email }}</td>
+                                        <td>{{cliente.fechaCompra}}</td>
+                                        <td>{{cliente.edad}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="limiter">
+    <div class="ayuda">
+        <img src="../../../assets/coink/ayuda.png" alt="logo">
+        <a>¿Necesitas ayuda?</a>
+    </div>
+    <div class=" dimension">
+
+        <img src="../../../assets/coink/logo.png" alt="logo">
+
+        <!-- <form class="form-control formC" autocomplete="off" (ngSubmit)="guardar( forma )" #forma="ngForm"> -->
+        <form class="seguro" autocomplete="off" (ngSubmit)="capturar( f )" #f="ngForm">
+            <img class="escudo" src="../../../assets/coink/Escudo.png" alt="escudo">
+            <span class="login100-form-title p-b-20">
+            
+                    INGRESO SEGURO
+                </span>
+            <p class="parrafo">Un código de verificacion fue enviado a tu correo, porfavor introdúcelo.</p>
+
+
+
+            <div class="wrap-input100 m-b-16 ">
+                <!-- <input class="input100 " type="password" name="pass" placeholder="Contraseña"> -->
+                <input class="inputSeguro" type="password" placeholder="Ingresa tu código de verificación" name="clave" [class.is-invalid]="seguroNovalido" ngModel #clave="ngModel" required minlength="6">
+                <small *ngIf="clave.invalid && clave.touched " class="form-text text-danger bg-light text-center w-100">no cumple los parametros</small>
+            </div>
+
+            <div class="container-home100-form-btn m-t-17 m-b-20 my-2">
+                <button class="login100-form-btn" type="submit">
+                    ENTRAR
+                </button>
+            </div>
+
+        </form>
+
+        <a routerLink="#" class="txt2">
+            ¿Quieres vincular tu empresa a Coink?
+        </a>
+
+    </div>
+    <footer>Copyright © 2020 Coink S.A</footer>
+</div>
